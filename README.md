@@ -9,7 +9,7 @@ add -g and -03 flags to enable optimization
 ## MAP 
 
 - in this design, we have 2 <std::map<uint32_t, Limit*, comparator>> to represent the orderbook with bids being in descending order and offers being in ascending order
-- each limit object is comprised of a double linked list of order objects, and we store individual pointers to order objects in a custom open address table (another repo for statistics) by order_id for o(1) access to each limit order
+- each limit object is comprised of a double linked list of order objects, and we store individual pointers to order objects in a custom open address table ([another repo for statistics](https://github.com/DJ824/open-address-table)) by order_id for o(1) access to each limit order
 - pointers to limit objects are also stored in a std::unordered_map<std::pair<int32_t, bool>, MapLimit*, boost::hash<std::pair<int32_t, bool>>> hashing the combination of price,bool to determine which side of the book the limit belongs to. thus, we have o(1) + cost of hash access to each limit object
 
 Functions and Time Complexity 
